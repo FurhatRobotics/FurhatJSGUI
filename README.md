@@ -13,9 +13,18 @@ Client library for connecting to a Furhat skill from a skill GUI
 ## Usage
 
 ```js
-import myModule from 'furhat-gui'
+import FurhatGUI from 'furhat-gui'
 
-myModule()
+FurhatGUI((furhat) => {
+    furhat.send({
+        event_name: 'MyEvent',
+        param1: 'MyParam1'
+    })
+
+    furhat.subscribe('com.myapp.MyCustomeEvent', (event) => {
+        console.log('recieved event: ', event.event_name)
+    })
+})
 ```
 
 ## API
