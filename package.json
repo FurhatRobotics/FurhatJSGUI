@@ -47,7 +47,7 @@
     "furhat-gui"
   ],
   "dependencies": {
-    "furhat-core": "0.0.2"
+    "furhat-core": "0.0.3"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
