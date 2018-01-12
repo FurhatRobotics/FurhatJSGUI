@@ -46,7 +46,9 @@
   "keywords": [
     "furhat-gui"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "furhat-core": "0.0.2"
+  },
   "devDependencies": {
     "babel-cli": "^6.18.0",
     "babel-eslint": "^8.0.0",
