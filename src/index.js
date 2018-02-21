@@ -25,7 +25,7 @@ const FurhatGUI = (callback) => {
         const furhat = new FurhatCore()
         portNumber = o.port
         callbackFun = callback
-        furhat.init(window.location.hostname, o.port, 'api', InitCallback) // eslint-disable-line no-undef
+        furhat.init(o.address, o.port, 'api', InitCallback) // eslint-disable-line no-undef
       })
     })
   }
