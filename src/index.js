@@ -6,7 +6,7 @@ let callbackFun
 const InitCallback = (status, hat) => {
   if (status === 'open') {
     hat.send({
-      event_name: 'furhatos.senses.SenseSkillGUIConnected',
+      event_name: 'furhatos.event.senses.SenseSkillGUIConnected',
       port: portNumber,
     })
     callbackFun(hat)
