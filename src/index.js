@@ -1,5 +1,6 @@
 import FurhatCore from 'furhat-core'
 
+let address
 let portNumber
 let callbackFun
 
@@ -10,6 +11,9 @@ const InitCallback = (status, hat) => {
       port: portNumber,
     })
     callbackFun(hat)
+  } else if (status === 'closed' || status === 'failed') {
+    console.log("Trying to reestablish connection to Furhat") // eslint-disable-line no-console
+    hat.init(address, portNumber, 'api', InitCallback);
   }
 }
 
@@ -23,6 +27,7 @@ const FurhatGUI = (callback) => {
     window.fetch('/port', { method: 'GET' }).then((r) => { // eslint-disable-line no-undef
       r.json().then((o) => {
         const furhat = new FurhatCore()
+        address = o.address
         portNumber = o.port
         callbackFun = callback
         furhat.init(o.address, o.port, 'api', InitCallback) // eslint-disable-line no-undef
