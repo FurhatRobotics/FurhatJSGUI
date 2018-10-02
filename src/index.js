@@ -21,18 +21,19 @@ const InitCallback = (status, hat) => {
  * FurhatGUI Function which sets up a connection to the furhat skill and gives
  * the furhat object to send and recieve events to the skill.
  * @param callback callback that needs to be triggered when a sucessful connection is established
+ * @return Promise that will return the promise of the connection
  */
 const FurhatGUI = (callback) => {
   if (callback !== undefined && typeof callback === 'function') {
-    window.fetch('/port', { method: 'GET' }).then((r) => { // eslint-disable-line no-undef
+    return window.fetch('/port', { method: 'GET' }).then(r =>
+      // eslint-disable-line no-undef
       r.json().then((o) => {
         const furhat = new FurhatCore()
         address = o.address // eslint-disable-line prefer-destructuring
         portNumber = o.port
         callbackFun = callback
         furhat.init(o.address, o.port, 'api', InitCallback) // eslint-disable-line no-undef
-      })
-    })
+      }))
   }
 }
 
