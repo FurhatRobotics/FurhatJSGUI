@@ -33,7 +33,8 @@ const FurhatGUI = (callback) => {
         portNumber = o.port
         callbackFun = callback
         furhat.init(o.address, o.port, 'api', InitCallback) // eslint-disable-line no-undef
-      }))
+      })
+    )
   }
 }
 
