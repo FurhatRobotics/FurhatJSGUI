@@ -34,6 +34,7 @@ const FurhatGUI = (callback) => {
         furhat.init(o.address, o.port, 'api', InitCallback) // eslint-disable-line no-undef
       }))
   }
+  return new Error('Callback needs to be a function')
 }
 
 export default FurhatGUI
