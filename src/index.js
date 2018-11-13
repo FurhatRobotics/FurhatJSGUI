@@ -25,16 +25,14 @@ const InitCallback = (status, hat) => {
  */
 const FurhatGUI = (callback) => {
   if (callback !== undefined && typeof callback === 'function') {
-    return window.fetch('/port', { method: 'GET' }).then(r =>
-      // eslint-disable-line no-undef
+    return window.fetch('/port', { method: 'GET' }).then(r => // eslint-disable-line no-undef
       r.json().then((o) => {
         const furhat = new FurhatCore()
         address = o.address // eslint-disable-line prefer-destructuring
         portNumber = o.port
         callbackFun = callback
         furhat.init(o.address, o.port, 'api', InitCallback) // eslint-disable-line no-undef
-      })
-    )
+      }))
   }
 }
 
