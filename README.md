@@ -13,17 +13,33 @@ Client library for connecting to a Furhat skill from a skill GUI
 ## Usage
 
 ```js
-import FurhatGUI from 'furhat-gui'
+import FurhatGUI, { Furhat } from 'furhat-gui'
 
-FurhatGUI((furhat) => {
-    furhat.send({
-        event_name: 'MyEvent',
-        param1: 'MyParam1'
-    })
+let furhat: Furhat = null
 
-    furhat.subscribe('com.myapp.MyCustomeEvent', (event) => {
-        console.log('recieved event: ', event.event_name)
+function setupSubscriptions () {
+    furhat.subscribe('com.myapp.MyCustomEvent', (event) => {
+        console.log('received event: ', event.event_name)
     })
+}
+
+FurhatGUI()
+    .then(connection => {
+        furhat = connection
+        furhat.onConnectionError((_connection: WebSocket, ev: globalThis.Event) => {
+            console.error("Error occured while connecting to Furhat skill")
+        })
+        furhat.onConnectionClose(() => {
+            console.warn("Connection with Furhat skill has been closed")
+        })
+        setupSubscriptions()
+    })
+    .catch(console.error)
+
+// Later somewhere in the code (after awaiting for the connection promise)
+furhat.send({
+    event_name: 'MyEvent',
+    param1: 'MyParam1'
 })
 ```
 
@@ -40,8 +56,4 @@ FurhatGUI((furhat) => {
 FurhatGUI Function which sets up a connection to the furhat skill and gives
 the furhat object to send and recieve events to the skill.
 
-**Parameters**
-
--   `callback`  callback that needs to be triggered when a sucessful connection is established
-
-Returns **any** Promise that will return the promise of the connection
+Returns **any** Promise that will return the promise with a `Furhat` obkect
