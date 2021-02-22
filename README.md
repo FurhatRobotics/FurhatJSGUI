@@ -26,6 +26,12 @@ function setupSubscriptions () {
 FurhatGUI()
     .then(connection => {
         furhat = connection
+        furhat.onConnectionError((_connection: WebSocket, ev: globalThis.Event) => {
+            console.error("Error occured while connecting to Furhat skill")
+        })
+        furhat.onConnectionClose(() => {
+            console.warn("Connection with Furhat skill has been closed")
+        })
         setupSubscriptions()
     })
     .catch(console.error)
